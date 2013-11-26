@@ -15,6 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "event": "../../e/event#~0.2.2"
+    "event": "/Users/wilsonpage/Documents/e/event#~0.2.2"
   }
 }
