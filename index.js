@@ -144,14 +144,19 @@ proto.find = function(query) {
   return this.el.querySelector(query);
 };
 
+/**
+ * Detects if the view's
+ * root element is in the
+ * document.
+ *
+ * @return {Boolean}
+ */
 proto.inDOM = function() {
   var target = this.el.parentNode;
   var body = document.body;
-
   while (target && target !== body) {
     target = target.parentNode;
   }
-
   return target === body;
 };
 
