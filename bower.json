@@ -15,6 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "event": "/Users/wilsonpage/Documents/e/event#~0.2.2"
+    "wp-event": "~0.2.2"
   }
 }
