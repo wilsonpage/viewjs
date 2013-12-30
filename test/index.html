@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <div id="fixtures"></div>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+  <script src="../node_modules/sinon/lib/sinon.js"></script>
+  <script src="../node_modules/sinon/lib/sinon/match.js"></script>
+  <script src="../node_modules/sinon/lib/sinon/spy.js"></script>
+  <script>mocha.setup('tdd')</script>
+  <script src="../bower_components/events/index.js"></script>
+  <script src="../index.js"></script>
+  <script src="test-view-el.js"></script>
+  <script src="test-view-plugins.js"></script>
+  <script src="test-view-remove.js"></script>
+  <script src="test-view-prependTo.js"></script>
+  <script src="test-view-inDOM.js"></script>
+  <script>
+
+    // Alias
+    var assert = chai.assert;
+    var View = window.view;
+
+    mocha.checkLeaks();
+    if (window.mochaPhantomJS) mochaPhantomJS.run();
+    else mocha.run();
+  </script>
+</body>
+</html>
