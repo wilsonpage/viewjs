@@ -1,0 +1,30 @@
+{
+  "name": "viewjs",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "~1.8.0",
+    "sinon": "~1.7.3",
+    "mocha-phantomjs": "~3.1.5"
+  },
+  "devDependencies": {
+    "mocha": "~1.13.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wilsonpage/view.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/wilsonpage/view/issues"
+  },
+  "homepage": "https://github.com/wilsonpage/view"
+}

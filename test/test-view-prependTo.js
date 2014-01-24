@@ -2,7 +2,7 @@
 suite('View#prependTo', function() {
 
   test('Should inject the root element as the first child', function() {
-    var Foo = View.extend({});
+    var Foo = view.define({});
     var foo = new Foo();
 
     foo.prependTo(document.body);
@@ -12,7 +12,7 @@ suite('View#prependTo', function() {
 
   test('Should still work if target is empty', function() {
     var target = document.createElement('div');
-    var Foo = View.extend({});
+    var Foo = view.define({});
     var foo = new Foo();
 
     foo.prependTo(target);
@@ -20,13 +20,13 @@ suite('View#prependTo', function() {
     assert(foo.el === target.firstChild);
   });
 
-  test('Should fire an \'inserted\' event', function() {
+  test('Should fire an \'insert\' event', function() {
     var target = document.createElement('div');
     var callback = sinon.spy();
-    var Foo = View.extend({});
+    var Foo = view.define({});
     var foo = new Foo();
 
-    foo.on('inserted', callback);
+    foo.on('insert', callback);
     foo.prependTo(target);
 
     assert(callback.called);
@@ -34,7 +34,7 @@ suite('View#prependTo', function() {
 
   test('Should fail silently', function() {
     var target = document.querySelector('.doesnt-exist');
-    var Foo = View.extend({});
+    var Foo = view.define({});
     var foo = new Foo();
 
     foo.prependTo(target);
@@ -45,7 +45,7 @@ suite('View#prependTo', function() {
   test('Should not fire the \'inserted\' event on failure', function() {
     var target = document.querySelector('.doesnt-exist');
     var callback = sinon.spy();
-    var Foo = View.extend({});
+    var Foo = view.define({});
     var foo = new Foo();
 
     foo.on('inserted', callback);

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Example 1</title>
+</head>
+<body>
+  <script src="../../bower_components/events/index.js"></script>
+  <script src="../../index.js"></script>
+  <script>
+
+    var Foo = view.define({
+      name: 'foo',
+      template: function() {
+        return '<h2>My name is ' + this.name + '</h2>';
+      }
+    });
+
+    var Bar = view.define({
+      extends: Foo.prototype,
+      name: 'bar'
+    });
+
+    var Baz = view.define({
+      extends: Bar,
+      name: 'baz'
+    })
+
+    var foo = new Foo();
+    var bar = new Bar();
+    var baz = new Baz();
+
+    foo.render().appendTo(document.body);
+    bar.render().appendTo(document.body);
+    baz.render().appendTo(document.body);
+  </script>
+</body>
+</html>
