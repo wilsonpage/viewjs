@@ -7,12 +7,13 @@
     "test": "test"
   },
   "dependencies": {
+    "evt": "git://github.com/wilsonpage/evt.git"
+  },
+  "devDependencies": {
+    "mocha": "~1.13.0",
     "chai": "~1.8.0",
     "sinon": "~1.7.3",
     "mocha-phantomjs": "~3.1.5"
-  },
-  "devDependencies": {
-    "mocha": "~1.13.0"
   },
   "scripts": {
     "test": "mocha"

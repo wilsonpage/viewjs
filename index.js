@@ -17,7 +17,7 @@
  * Depencies
  */
 
-var events = require('events');
+var events = require('evt');
 
 /**
  * Locals

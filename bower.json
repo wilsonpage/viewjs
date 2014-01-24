@@ -15,6 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "events": "https://github.com/wilsonpage/events.git#v0.3.1"
+    "evt": "https://github.com/wilsonpage/evt.git#v0.3.3"
   }
 }
