@@ -1,16 +1,4 @@
-(function(name, definition){
-  if (typeof module != 'undefined') {
-    definition(require, exports, module);
-  } else if (typeof define == 'function' && typeof define.amd == 'object') {
-    define(definition);
-  } else {
-    module = { exports: {} };
-    require = function(name) { return window[name]; };
-    window[name] = definition(require, module.exports, module) || module.exports;
-    module = require = undefined;
-  }
-}('view', function(require, exports, module) {
-
+umd(function(require, exports, module) {
 'use strict';
 
 /**
@@ -331,4 +319,8 @@ function mixin(a, b) {
   return a;
 }
 
-}));
+}, 'view');function umd(fn,n){
+  if(typeof define=='function')return define(fn);
+  if(typeof module=='object')return fn(require,exports,module);
+  var m={exports:{}}; window[n]=fn(function(n){return window[n];},m.exports,m)||m.exports;
+}
