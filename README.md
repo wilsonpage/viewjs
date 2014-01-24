@@ -1,4 +1,3 @@
-
 # view.js
 
 The simple, extensible view solution. For both client and server. Web-Component ready.
