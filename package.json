@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/wilsonpage/view.git"
+    "url": "git://github.com/wilsonpage/viewjs.git"
   },
   "author": "",
   "license": "BSD-2-Clause",
   "bugs": {
-    "url": "https://github.com/wilsonpage/view/issues"
+    "url": "https://github.com/wilsonpage/viewjs/issues"
   },
-  "homepage": "https://github.com/wilsonpage/view"
+  "homepage": "https://github.com/wilsonpage/viewjs"
 }
