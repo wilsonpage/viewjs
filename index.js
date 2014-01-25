@@ -1,4 +1,5 @@
-umd(function(require, exports, module) {
+umd('view',function(define){
+define(function(require, exports, module){
 'use strict';
 
 /**
@@ -235,13 +236,10 @@ proto.wrappedRender = function() {
  * key to perform a custom
  * installation.
  *
- * TODO: Make duplicate plugin
- * installs more robust.
- *
  * @param  {Function} plugin
  * @return {View}
  */
-exports.plugin = function(plugin) {
+exports.plugin = exports.install = function(plugin) {
   var installed = this.installedPlugins;
   if (plugin.install && !~installed.indexOf(plugin)) {
     plugin.install(this);
@@ -319,8 +317,9 @@ function mixin(a, b) {
   return a;
 }
 
-}, 'view');function umd(fn,n){
-  if(typeof define=='function')return define(fn);
-  if(typeof module=='object')return fn(require,exports,module);
-  var m={exports:{}}; window[n]=fn(function(n){return window[n];},m.exports,m)||m.exports;
+});});function umd(n,fn){
+  if(typeof define=='function')return fn(define);
+  if(typeof module=='object') return fn(function(closure){closure(require,exports,module);});
+  var m={exports:{}},r=function(n){return window[n];};
+  fn(function(closure){window[n]=closure(r,m.exports,m)||m.exports;});
 }
