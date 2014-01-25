@@ -1,0 +1,9 @@
+{
+  "name": "viewjs-example-amd",
+  "dependencies": {
+    "requirejs": "~2.1.10"
+  },
+  "scripts": {
+    "build": "r.js -o build-config.js"
+  }
+}
