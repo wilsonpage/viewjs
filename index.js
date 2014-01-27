@@ -1,5 +1,5 @@
-umd('view',function(define){
-define(function(require, exports, module){
+umd(function(define) {
+define(function(require, exports, module) {
 'use strict';
 
 /**
@@ -28,14 +28,23 @@ exports = module.exports = events({});
  * or creates a root element
  * which we template into.
  *
+ * options:
+ *
+ *   - `el` {HTMLElement} Pre-existing root element
+ *
  * @constructor
  */
 var Base = exports.Base = function(options){
   options = options || {};
+
   this.el = options.el || this.el || this.createElement(this.tag);
   this.el.id = this.el.id || ('view' + counter++);
   this.attachedPlugins = [];
   this.els = {};
+
+  // Mixin any attribute options
+  // found on the root elmement
+  mixin(options, this.attrOptions());
 
   if (!this.el.className) {
     if (this.name) this.el.className = this.name;
@@ -44,11 +53,12 @@ var Base = exports.Base = function(options){
 
   // Wrap the user defined render,
   // method with event hooks.
+  this.renderRaw = this.render;
   this.render = this.wrappedRender();
 
   // Include base plugins and class plugins
   this.plugins = this.plugins.concat(Base.prototype.plugins);
-  this.plugins.forEach(function(plugin) { this.applyPlugin(plugin, options); }, this);
+  this.plugins.forEach(function(plugin) { this.install(plugin, options); }, this);
   this.initialize.apply(this, arguments);
 };
 
@@ -77,14 +87,14 @@ proto.name = 'unnamed';
 proto.plugins = [];
 
 /**
- * Applys a given plugin.
+ * Installs a plugin.
  *
  * Not allowing the same
  * plugin to be added twice.
  *
  * @param {Function} plugin
  */
-proto.applyPlugin = function(plugin) {
+proto.install = function(plugin) {
   var plugins = this.attachedPlugins;
   var args = slice.call(arguments, 1);
   args.unshift(this);
@@ -92,6 +102,26 @@ proto.applyPlugin = function(plugin) {
     plugins.push(plugin);
     plugin.apply(this, args);
   }
+};
+
+proto.attrOptions = function() {
+  var attrs = this.el.attributes;
+  var i = attrs.length;
+  var ignore = /^view-/;
+  var options = {};
+  var name;
+
+  while (i--) {
+    name = attrs[i].name;
+    if (ignore.test(name)) continue;
+    switch (name) {
+      case 'id':
+      case 'class': break;
+      default: options[name] = attrs[i].nodeValue;
+    }
+  }
+
+  return options;
 };
 
 /**
@@ -317,9 +347,7 @@ function mixin(a, b) {
   return a;
 }
 
-});});function umd(n,fn){
-  if(typeof define=='function')return fn(define);
-  if(typeof module=='object') return fn(function(closure){closure(require,exports,module);});
-  var m={exports:{}},r=function(n){return window[n];};
-  fn(function(closure){window[n]=closure(r,m.exports,m)||m.exports;});
-}
+});},'viewjs');function umd(fn,n){
+if(typeof define=='function')return fn(define);
+if(typeof module=='object')return fn(function(c){c(require,exports,module);});
+var m={exports:{}},r=function(n){return window[n];};fn(function(c){window[n]=c(r,m.exports,m)||m.exports;});}

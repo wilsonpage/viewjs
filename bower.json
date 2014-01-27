@@ -12,7 +12,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "examples"
   ],
   "dependencies": {
     "evt": "https://github.com/wilsonpage/evt.git#v0.3.3"

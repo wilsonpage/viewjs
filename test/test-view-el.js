@@ -2,13 +2,13 @@
 suite('View#el', function() {
 
 	test('Should create an element if one not passed to constructor', function() {
-    var Foo = view.define({});
+    var Foo = viewjs.define({});
     var foo = new Foo();
     assert(foo.el);
 	});
 
   test('Should use the element passed as the root element', function() {
-    var Foo = view.define({});
+    var Foo = viewjs.define({});
     var rootEl = document.createElement('div');
     var foo = new Foo({ el: rootEl });
 
@@ -16,14 +16,14 @@ suite('View#el', function() {
   });
 
   test('Should have the module name as a class', function() {
-    var Foo = view.define({ name: 'foo' });
+    var Foo = viewjs.define({ name: 'foo' });
     var foo = new Foo();
 
     assert(foo.el.classList.contains('foo'));
   });
 
   test('Should have the defined className in the el.className', function() {
-    var Foo = view.define({ className: 'some classes' });
+    var Foo = viewjs.define({ className: 'some classes' });
     var foo = new Foo();
 
     assert(foo.el.classList.contains('some'));
@@ -34,7 +34,7 @@ suite('View#el', function() {
     var el = document.createElement('div');
     el.className = 'foo bar';
 
-    var Foo = view.define({});
+    var Foo = viewjs.define({});
     var foo = new Foo({ el: el });
 
     assert(foo.el.classList.contains('foo'));
@@ -45,7 +45,7 @@ suite('View#el', function() {
     var el = document.createElement('div');
     el.className = 'foo bar';
 
-    var Foo = view.define({ className: 'some classes' });
+    var Foo = viewjs.define({ className: 'some classes' });
     var foo = new Foo({ el: el });
 
     assert(!foo.el.classList.contains('some'));
@@ -53,7 +53,7 @@ suite('View#el', function() {
   });
 
   test('Should be assigned a unique id', function() {
-    var Foo = view.define({});
+    var Foo = viewjs.define({});
     var foo = new Foo();
 
     assert(foo.el.id);

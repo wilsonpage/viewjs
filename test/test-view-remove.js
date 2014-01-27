@@ -2,7 +2,7 @@
 suite('View#remove', function() {
 
   test('Should remove the root element from the DOM', function() {
-    var Foo = view.define({});
+    var Foo = viewjs.define({});
     var foo = new Foo();
 
     document.body.appendChild(foo.el);
@@ -12,7 +12,7 @@ suite('View#remove', function() {
   });
 
   test('Should fail silently if the root element has no context', function() {
-    var Foo = view.define({});
+    var Foo = viewjs.define({});
     var foo = new Foo();
 
     foo.remove();
@@ -22,7 +22,7 @@ suite('View#remove', function() {
 
   test('Should fire a \'remove\' event', function() {
     var callback = sinon.spy();
-    var Foo = view.define({});
+    var Foo = viewjs.define({});
     var foo = new Foo();
 
     document.body.appendChild(foo.el);
