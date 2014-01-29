@@ -21,7 +21,25 @@ var counter = 1;
  * Exports
  */
 
-exports = module.exports = events({});
+exports = module.exports = events(view);
+
+/**
+ * Initialize a new view from
+ * a pre-existing definition.
+ *
+ * @param  {Element|Object} param
+ * @return {[type]}    [description]
+ */
+function view(config) {
+  var View;
+  if (config instanceof Element) {
+    View = viewjs.get(config.getAttribute('name'));
+    return View && new View({ el: config });
+  } else if (config) {
+    View = viewjs.get(config.name || config.view || config.module);
+    return View && new View(config);
+  }
+}
 
 /**
  * Base view class. Accepts
@@ -35,9 +53,11 @@ exports = module.exports = events({});
  * @constructor
  */
 var Base = exports.Base = function(options){
-  options = options || {};
+  if (this.initialized) return;
 
+  options = options || {};
   this.el = options.el || this.el || this.createElement(this.tag);
+  this.el.setAttribute('name', this.name);
   this.el.id = this.el.id || ('view' + counter++);
   this.attachedPlugins = [];
   this.els = {};
@@ -53,13 +73,14 @@ var Base = exports.Base = function(options){
 
   // Wrap the user defined render,
   // method with event hooks.
-  this.renderRaw = this.render;
-  this.render = this.wrappedRender();
+  this._render = this.render;
+  this.render = this.wrapRender();
 
   // Include base plugins and class plugins
   this.plugins = this.plugins.concat(Base.prototype.plugins);
   this.plugins.forEach(function(plugin) { this.install(plugin, options); }, this);
   this.initialize.apply(this, arguments);
+  this.initialized = true;
 };
 
 /**
@@ -244,7 +265,7 @@ proto.render = function() {
  *
  * @private
  */
-proto.wrappedRender = function() {
+proto.wrapRender = function() {
   var render = this.render;
   return function() {
     this.fire('before render');
@@ -300,12 +321,18 @@ exports.define = function(props) {
     extend = extend.prototype;
   }
 
-  var includesBase = extend === BaseProto || extend instanceof Base;
+  var includesBase = extend === BaseProto || extend.toString() === '[object View]';
   var proto = extend;
 
   // Add the base class ontop
   // of the proto chain if it
   // doesn't already exist.
+  //
+  // TODO: Surely the Base class
+  // should be below the extended
+  // class in cas any of the extend
+  // class properties are designed
+  // to override the Bases'.
   if (!includesBase) {
     proto = create(extend);
     mixin(proto, BaseProto);
@@ -316,6 +343,10 @@ exports.define = function(props) {
   proto = create(proto);
   NewView.prototype = mixin(proto, props);
   return defined[props.name] = NewView;
+};
+
+exports.get = function(name) {
+  return defined[name];
 };
 
 // Stores references to defined views
